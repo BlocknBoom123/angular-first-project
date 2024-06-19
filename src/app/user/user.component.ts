@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 
 const index = Math.floor(Math.random() * DUMMY_USERS.length)
@@ -11,5 +11,10 @@ const index = Math.floor(Math.random() * DUMMY_USERS.length)
   styleUrl: './user.component.css'
 })
 export class UserComponent {
-  selectedUser = DUMMY_USERS[index]
+  @Input({required: true}) avatar!: string;
+  @Input({required: true}) name!: string;
+  
+    get imagePath() {
+      return `assets/users/${this.avatar}`
+    }
 }
