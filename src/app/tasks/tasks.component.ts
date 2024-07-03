@@ -1,18 +1,21 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
+import { TaskComponent } from "./task/task.component";
+import { dummyTasks } from '../dummy-tasks';
 
 @Component({
-  selector: 'app-tasks',
-  standalone: true,
-  imports: [],
-  templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.css',
+    selector: 'app-tasks',
+    standalone: true,
+    templateUrl: './tasks.component.html',
+    styleUrl: './tasks.component.css',
+    imports: [TaskComponent]
 })
 export class TasksComponent {
+  @Input({ required: true }) id!: string;
   @Input({ required: true }) name!: string;
-  @Output() select = new EventEmitter<string>();
+  tasks = dummyTasks;
 
-  onSelectUser() {
-    this.select.emit(this.name);
+  get selectedUserTasks() {
+    return this.tasks.filter(task => task.userId === this.id);
   }
+
 }
